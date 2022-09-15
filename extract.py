@@ -25,7 +25,10 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s.
     """
     # TODO: Load NEO data from the given CSV file.
-    return ()
+    with open(neo_csv_path, 'r') as csv_file:
+        reader = csv.DictReader(csv_file)
+
+    return (NearEarthObject(elem['pdes'], elem['name'], elem['diameter'], elem['pha']) for elem in reader)
 
 
 def load_approaches(cad_json_path):
