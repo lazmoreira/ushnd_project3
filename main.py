@@ -180,7 +180,7 @@ def inspect(database, pdes=None, name=None, verbose=False):
     # Fetch the NEO of interest.
     if pdes:
         neo = database.get_neo_by_designation(pdes)
-    else:        
+    else:
         neo = database.get_neo_by_name(name)
 
     # Ensure that we have received an NEO.

@@ -33,7 +33,7 @@ class NearEarthObject:
     `NEODatabase` constructor.
     """
 
-    def __init__(self, designation = '', name = None, diameter = float('nan'), hazardous = False):
+    def __init__(self, designation='', name=None, diameter=float('nan'), hazardous=False):
         """Create a new `NearEarthObject`.
 
         :param designation: string - The primary designation for this NearEarthObject.
@@ -41,7 +41,6 @@ class NearEarthObject:
         :param diameter: float - The diameter, in kilometers, of this NearEarthObject.
         :param hazardous: boolean - Whether or not this NearEarthObject is potentially hazardous.
         """
-        
         self.designation = designation
         self.name = name
         self.diameter = diameter
@@ -53,9 +52,9 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-        ret = f'{self.designation} ({self.name})' if self.name != None else f'{self.designation}';
+        ret = f'{self.designation} ({self.name})' if self.name is not None else f'{self.designation}'
 
-        return ret;
+        return ret
 
     def __str__(self):
         """Return `str(self)`."""
@@ -65,6 +64,16 @@ class NearEarthObject:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
+
+    def serialize(self):
+        """Return a dictionary representation of the object."""
+        dict = {}
+        dict['designation'] = self.designation
+        dict['name'] = self.name if self.name else ''
+        dict['diameter_km'] = self.diameter if self.diameter else 'Nan'
+        dict['potentially_hazardous'] = self.hazardous
+
+        return dict
 
 
 class CloseApproach:
@@ -81,12 +90,11 @@ class CloseApproach:
     `NEODatabase` constructor.
     """
 
-    def __init__(self, des = '', time = None, distance = 0.0, velocity = 0.0):
+    def __init__(self, des='', time=None, distance=0.0, velocity=0.0):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-
         self._designation = des
         self.time = cd_to_datetime(time) if time is not None else None  # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = distance
@@ -108,15 +116,22 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        
         return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
-        
         return f"At {self.time_str}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
+
+    def serialize(self):
+        """Return a dictionary representation of the object."""
+        dict = {}
+        dict['datetime_utc'] = self.time_str
+        dict['distance_au'] = self.distance
+        dict['velocity_km_s'] = self.velocity
+
+        return dict

@@ -23,6 +23,7 @@ class NEODatabase:
     help fetch NEOs by primary designation or by name and to help speed up
     querying for close approaches that match criteria.
     """
+
     def __init__(self, neos, approaches):
         """Create a new `NEODatabase`.
 
@@ -44,13 +45,10 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        # TODO: What additional auxiliary data structures will be useful?
-        # TODO: Link together the NEOs and their close approaches.
-
         for approach in self._approaches:
             neo = self.get_neo_by_designation(approach._designation)
-            approach.neo = neo;
-            neo.approaches += [approach]        
+            approach.neo = neo
+            neo.approaches += [approach]
 
     @cache
     def get_neo_by_designation(self, designation):
@@ -66,10 +64,9 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
         neo_list = list(filter(lambda neo: neo.designation == designation, self._neos))
-        neo = neo_list.pop(0) if len(neo_list) else None        
-        
+        neo = neo_list.pop(0) if len(neo_list) else None
+
         return neo
 
     @cache
@@ -87,10 +84,9 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
         neo_list = list(filter(lambda elem: elem.name == name, self._neos))
-        neo = neo_list.pop(0) if len(neo_list) else None    
-        
+        neo = neo_list.pop(0) if len(neo_list) else None
+
         return neo if neo else None
 
     @cache
@@ -108,7 +104,6 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
         for approach in self._approaches:
             passed = True
             for filter in filters:
