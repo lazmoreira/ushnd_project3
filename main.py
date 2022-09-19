@@ -176,10 +176,11 @@ def inspect(database, pdes=None, name=None, verbose=False):
     :param verbose: Whether to additionally print all of a matching NEO's close approaches.
     :return: The matching `NearEarthObject`, or None if not found.
     """
+
     # Fetch the NEO of interest.
     if pdes:
         neo = database.get_neo_by_designation(pdes)
-    else:
+    else:        
         neo = database.get_neo_by_name(name)
 
     # Ensure that we have received an NEO.
@@ -380,7 +381,6 @@ def main():
     """Run the main script."""
     parser, inspect_parser, query_parser = make_parser()
     args = parser.parse_args()
-
     # Extract data from the data files into structured Python objects.
     database = NEODatabase(load_neos(args.neofile), load_approaches(args.cadfile))
 

@@ -81,19 +81,19 @@ class CloseApproach:
     `NEODatabase` constructor.
     """
 
-    def __init__(self, neo = None, time = None, distance = 0.0, velocity = 0.0):
+    def __init__(self, des = '', time = None, distance = 0.0, velocity = 0.0):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
 
-        self._designation = neo.designation
+        self._designation = des
         self.time = cd_to_datetime(time) if time is not None else None  # TODO: Use the cd_to_datetime function for this attribute.
         self.distance = distance
         self.velocity = velocity
 
         # Create an attribute for the referenced NEO, originally None.
-        self.neo = neo
+        self.neo = None
 
     @property
     def time_str(self):

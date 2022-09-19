@@ -309,7 +309,7 @@ class TestQuery(unittest.TestCase):
 
         filters = create_filters(hazardous=False)
         received = set(self.db.query(filters))
-
+        
         self.assertEqual(expected, received, msg="Computed results do not match expected results.")
 
     ###########################
