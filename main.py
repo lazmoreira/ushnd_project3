@@ -176,7 +176,6 @@ def inspect(database, pdes=None, name=None, verbose=False):
     :param verbose: Whether to additionally print all of a matching NEO's close approaches.
     :return: The matching `NearEarthObject`, or None if not found.
     """
-
     # Fetch the NEO of interest.
     if pdes:
         neo = database.get_neo_by_designation(pdes)
@@ -247,6 +246,7 @@ class NEOShell(cmd.Cmd):
     inspect and query commands, while only loading the data (which can be quite
     slow) once.
     """
+
     intro = ("Explore close approaches of near-Earth objects. "
              "Type `help` or `?` to list commands and `exit` to exit.\n")
     prompt = '(neo) '
